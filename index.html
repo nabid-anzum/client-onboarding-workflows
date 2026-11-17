@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClientFlow | Onboarding Management</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/app.js" defer></script>
+<script src="assets/js/tasks.js" defer></script>
+<script src="assets/js/checklists.js" defer></script>
+<script src="assets/js/reports.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="brand">Client<span>Flow</span></div>
+        <div class="header-right">Agency Operations | v0.5</div>
+    </div>
+</header>
+
+<nav class="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+        <button type="button" class="nav-btn active"
+                data-tab="dashboard">Dashboard</button>
+        <button type="button" class="nav-btn"
+                data-tab="clients">Clients</button>
+        <button type="button" class="nav-btn" data-tab="tasks">Tasks</button>
+        <button type="button" class="nav-btn" data-tab="checklists">Checklists</button>
+        <button type="button" class="nav-btn" data-tab="reports">Reports</button>
+    </div>
+</nav>
+
+<main class="container">
+
+    <div id="storage-message" class="storage-message"
+         role="status">Checking browser storage...</div>
+
+    <div id="feedback" class="feedback"
+         role="status" aria-live="polite"></div>
+
+    <section id="dashboard-view" class="page">
+        <div class="page-heading">
+            <div>
+                <p class="eyebrow">OPERATIONAL OVERVIEW</p>
+                <h1>Dashboard</h1>
+                <p>Track client onboarding performance.</p>
+            </div>
+            <button type="button" class="btn btn-primary"
+                    id="dashboard-add">+ Add Client</button>
+        </div>
+
+        <div class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-label">Total Clients</div>
+                <div class="stat-value" id="total-clients">0</div>
+                <div class="stat-foot">Registered clients</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-label">Active Onboarding</div>
+                <div class="stat-value" id="active-clients">0</div>
+                <div class="stat-foot">Not yet completed</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-label">Completed</div>
+                <div class="stat-value" id="completed-clients">0</div>
+                <div class="stat-foot">Finished onboarding</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-label">Completion Rate</div>
+                <div class="stat-value" id="completion-rate">0%</div>
+                <div class="stat-foot">Completed / total clients</div>
+            </article>
+        </div>
+
+        <div class="content-grid">
+            <article class="panel">
+                <h2>Onboarding Performance</h2>
+                <p>Percentage of clients who completed onboarding.</p>
+
+                <div class="progress-heading">
+                    <strong>Overall Completion</strong>
+                    <span id="progress-percent">0%</span>
+                </div>
+
+                <progress id="completion-progress"
+                          max="100" value="0">0%</progress>
+
+                <p class="small-text" id="completion-detail">
+                    No clients registered yet.
+                </p>
+            </article>
+
+            <article class="panel">
+                <h2>Recent Clients</h2>
+                <p>Latest client onboarding records.</p>
+                <ul class="recent-list" id="recent-clients">
+                    <li>No clients added yet.</li>
+                </ul>
+            </article>
+        </div>
+
+        <article class="panel task-dashboard-panel">
+            <h2>Task Operations</h2>
+            <p>Live summary of onboarding tasks across all clients.</p>
+            <div class="task-mini-grid">
+                <div>
+                    <strong id="dashboard-task-total">0</strong>
+                    <span>Total Tasks</span>
+                </div>
+                <div>
+                    <strong id="dashboard-task-overdue">0</strong>
+                    <span>Overdue</span>
+                </div>
+                <div>
+                    <strong id="dashboard-task-rate">0%</strong>
+                    <span>Task Completion Rate</span>
+                </div>
+            </div>
+        </article>
+<article class="panel checklist-dashboard-panel">
+    <h2>Standardized Onboarding</h2>
+    <p>Monitor adoption and completion of the eight-step checklist.</p>
+
+    <div class="task-mini-grid">
+        <div>
+            <strong id="dashboard-checklist-started">0</strong>
+            <span>Clients with checklists started</span>
+        </div>
+
+        <div>
+            <strong id="dashboard-checklist-finished">0</strong>
+            <span>Clients with all steps completed</span>
+        </div>
+
+        <div>
+            <strong id="dashboard-checklist-rate">0%</strong>
+            <span>Checklist step completion rate</span>
+        </div>
+    </div>
+</article>
+        <article class="panel next-panel">
+            <h2>Workflow Development</h2>
+            <p>
+                Client and task management are available, along with standardized onboarding checklists. Reports and JSON backup tools are now available.
+            </p>
+        </article>
+    </section>
+
+    <section id="clients-view" class="page" hidden>
+        <div class="page-heading">
+            <div>
+                <p class="eyebrow">CLIENT OPERATIONS</p>
+                <h1>Client Management</h1>
+                <p>Create and maintain client onboarding records.</p>
+            </div>
+        </div>
+
+        <form id="client-form" class="panel">
+            <h2 id="form-title">Add a Client</h2>
+            <p>Enter the basic onboarding information below.</p>
+
+            <input type="hidden" id="client-id">
+
+            <div class="form-grid">
+                <div class="field">
+                    <label for="company">Company / Client Name *</label>
+                    <input id="company" type="text"
+                           maxlength="100" required
+                           placeholder="e.g. Acme Technologies">
+                </div>
+
+                <div class="field">
+                    <label for="contact">Contact Person *</label>
+                    <input id="contact" type="text"
+                           maxlength="100" required
+                           placeholder="e.g. John Smith">
+                </div>
+
+                <div class="field">
+                    <label for="email">Contact Email *</label>
+                    <input id="email" type="email"
+                           maxlength="150" required
+                           placeholder="contact@example.com">
+                </div>
+
+                <div class="field">
+                    <label for="service">Service Type *</label>
+                    <select id="service" required>
+                        <option value="">Select service</option>
+                        <option>Website Development</option>
+                        <option>Web Application</option>
+                        <option>SEO</option>
+                        <option>Digital Marketing</option>
+                        <option>IT Support</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="start-date">Onboarding Start Date *</label>
+                    <input id="start-date" type="date" required>
+                </div>
+
+                <div class="field">
+                    <label for="stage">Onboarding Stage *</label>
+                    <select id="stage" required>
+                        <option>Intake</option>
+                        <option>Kickoff</option>
+                        <option>Requirements</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button id="save-client" class="btn btn-primary"
+                        type="submit">Save Client</button>
+                <button id="cancel-edit" class="btn btn-secondary"
+                        type="button" hidden>Cancel Edit</button>
+            </div>
+        </form>
+
+        <div class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Client Directory</h2>
+                    <p id="client-count">0 clients</p>
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <div class="field">
+                    <label for="client-search">Search Clients</label>
+                    <input id="client-search" type="search"
+                           placeholder="Search company, name or email">
+                </div>
+
+                <div class="field">
+                    <label for="stage-filter">Filter by Stage</label>
+                    <select id="stage-filter">
+                        <option value="all">All stages</option>
+                        <option>Intake</option>
+                        <option>Kickoff</option>
+                        <option>Requirements</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Service</th>
+                            <th>Stage</th>
+                            <th>Start Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clients-table-body"></tbody>
+                </table>
+            </div>
+
+            <div id="empty-state" class="empty-state" hidden>
+                No clients found.
+            </div>
+        </div>
+    </section>
+
+    <section id="tasks-view" class="page" hidden>
+        <div class="page-heading">
+            <div>
+                <p class="eyebrow">WORKFLOW EXECUTION</p>
+                <h1>Task Management</h1>
+                <p>Assign onboarding tasks, set priorities, and meet deadlines.</p>
+            </div>
+            <button type="button" class="btn btn-secondary" id="tasks-add-client">+ Add Client</button>
+        </div>
+
+        <div class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-label">Total Tasks</div>
+                <div class="stat-value" id="task-stat-total">0</div>
+                <div class="stat-foot">All recorded tasks</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-label">Open Tasks</div>
+                <div class="stat-value" id="task-stat-open">0</div>
+                <div class="stat-foot">Not yet completed</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-label">Completed Tasks</div>
+                <div class="stat-value" id="task-stat-completed">0</div>
+                <div class="stat-foot">Finished tasks</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-label">Overdue Tasks</div>
+                <div class="stat-value" id="task-stat-overdue">0</div>
+                <div class="stat-foot">Open tasks past due date</div>
+            </article>
+        </div>
+
+        <article class="panel task-panel">
+            <h2 id="task-form-title">Create a Task</h2>
+            <p>Every task belongs to one client. Assign an owner and deadline.</p>
+
+            <p class="task-warning" id="tasks-storage-error" hidden>
+                Task storage is unavailable or contains invalid data. Saving is disabled.
+            </p>
+
+            <p class="task-warning" id="tasks-no-clients" hidden>
+                Add a client on the Clients tab before creating tasks.
+            </p>
+
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="task-client">Client *</label>
+                        <select id="task-client" required></select>
+                    </div>
+
+                    <div class="field">
+                        <label for="task-title">Task Name *</label>
+                        <input id="task-title" type="text" required maxlength="120"
+                               placeholder="e.g. Schedule kickoff meeting">
+                    </div>
+
+                    <div class="field">
+                        <label for="task-owner">Task Owner *</label>
+                        <input id="task-owner" type="text" required maxlength="100"
+                               placeholder="e.g. Account Manager">
+                    </div>
+
+                    <div class="field">
+                        <label for="task-due-date">Due Date *</label>
+                        <input id="task-due-date" type="date" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="task-priority">Priority *</label>
+                        <select id="task-priority" required>
+                            <option>Low</option>
+                            <option selected>Medium</option>
+                            <option>High</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="task-status">Status *</label>
+                        <select id="task-status" required>
+                            <option>Not Started</option>
+                            <option>In Progress</option>
+                            <option>Blocked</option>
+                            <option>Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="field task-description-field">
+                        <label for="task-description">Description (Optional)</label>
+                        <textarea id="task-description" rows="3" maxlength="500"
+                                  placeholder="Notes about this task"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button id="task-save" class="btn btn-primary" type="submit">
+                        Save Task
+                    </button>
+                    <button id="task-cancel" class="btn btn-secondary"
+                            type="button" hidden>Cancel Edit</button>
+                </div>
+            </form>
+        </article>
+
+        <article class="panel">
+            <h2>Task Directory</h2>
+            <p id="task-result-count">0 tasks</p>
+
+            <div class="task-filters">
+                <div class="field">
+                    <label for="tasks-search">Search Tasks</label>
+                    <input id="tasks-search" type="search"
+                           placeholder="Task, client, or owner">
+                </div>
+
+                <div class="field">
+                    <label for="tasks-filter-client">Client</label>
+                    <select id="tasks-filter-client"></select>
+                </div>
+
+                <div class="field">
+                    <label for="tasks-filter-status">Status</label>
+                    <select id="tasks-filter-status">
+                        <option value="all">All statuses</option>
+                        <option>Not Started</option>
+                        <option>In Progress</option>
+                        <option>Blocked</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="tasks-filter-priority">Priority</label>
+                    <select id="tasks-filter-priority">
+                        <option value="all">All priorities</option>
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table class="tasks-table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Client</th>
+                            <th>Owner</th>
+                            <th>Due Date</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasks-table-body"></tbody>
+                </table>
+            </div>
+
+            <div id="tasks-empty" class="empty-state" hidden></div>
+        </article>
+    </section>
+<section id="checklists-view" class="page" hidden>
+
+    <div class="page-heading">
+        <div>
+            <p class="eyebrow">STANDARDIZED WORKFLOWS</p>
+            <h1>Onboarding Checklists</h1>
+            <p>A repeatable eight-step process for every agency client.</p>
+        </div>
+        <button type="button" class="btn btn-secondary"
+                id="checklist-view-tasks">
+            View Tasks
+        </button>
+    </div>
+
+    <article class="panel checklist-panel">
+        <h2>Choose a Client</h2>
+        <p>
+            Automatically generate onboarding tasks based on the
+            client's start date. Existing template tasks will not
+            be duplicated.
+        </p>
+
+        <div class="checklist-toolbar">
+            <div class="field">
+                <label for="checklist-client">Client</label>
+                <select id="checklist-client"></select>
+            </div>
+
+            <button type="button" class="btn btn-primary"
+                    id="checklist-generate">
+                Generate Onboarding Tasks
+            </button>
+        </div>
+
+        <p id="checklist-alert" class="checklist-alert"
+           role="status" aria-live="polite"></p>
+
+        <p id="checklist-storage-warning" class="task-warning" hidden>
+            Task storage cannot be read safely. Checklist changes
+            are disabled to protect your existing records.
+        </p>
+    </article>
+
+    <article class="panel checklist-panel">
+
+        <div class="checklist-heading">
+            <div>
+                <h2>Standard Onboarding Checklist</h2>
+                <p id="checklist-client-description">
+                    Select a client to begin.
+                </p>
+            </div>
+
+            <strong id="checklist-progress-label">0 / 8</strong>
+        </div>
+
+        <progress id="checklist-progress" max="100" value="0">
+            0%
+        </progress>
+
+        <p class="small-text" id="checklist-progress-note">
+            0% of standard steps completed.
+        </p>
+
+        <div id="checklist-items" class="checklist-items"></div>
+    </article>
+
+</section>
+<section id="reports-view" class="page" hidden>
+    <div class="page-heading">
+        <div>
+            <p class="eyebrow">OPERATIONAL EXCELLENCE</p>
+            <h1>Reports &amp; Data</h1>
+            <p>Monitor onboarding performance and keep portable backups.</p>
+        </div>
+        <button type="button" class="btn btn-primary" id="report-export-json">Export JSON Backup</button>
+    </div>
+
+    <div class="stats-grid report-stats">
+        <article class="stat-card"><div class="stat-label">Total Clients</div><div class="stat-value" id="report-total-clients">0</div><div class="stat-foot">Onboarding records</div></article>
+        <article class="stat-card"><div class="stat-label">Completed Onboarding</div><div class="stat-value" id="report-completed-clients">0</div><div class="stat-foot">Stage: Completed</div></article>
+        <article class="stat-card"><div class="stat-label">Overdue Tasks</div><div class="stat-value" id="report-overdue-tasks">0</div><div class="stat-foot">Open past deadline</div></article>
+        <article class="stat-card"><div class="stat-label">Task Completion</div><div class="stat-value" id="report-task-rate">0%</div><div class="stat-foot">Completed / all tasks</div></article>
+    </div>
+
+    <div class="content-grid">
+        <article class="panel">
+            <h2>Tasks by Status</h2>
+            <p>See how work is distributed across delivery stages.</p>
+            <div class="table-wrap"><table><thead><tr><th>Status</th><th>Tasks</th></tr></thead><tbody id="report-status-body"></tbody></table></div>
+        </article>
+        <article class="panel">
+            <h2>Operational Alerts</h2>
+            <p>Actionable indicators from your existing task data.</p>
+            <div class="report-alert-row"><span>Blocked tasks</span><strong id="report-blocked">0</strong></div>
+            <div class="report-alert-row"><span>Due within 7 days</span><strong id="report-due-soon">0</strong></div>
+            <div class="report-alert-row"><span>Clients with overdue tasks</span><strong id="report-clients-at-risk">0</strong></div>
+        </article>
+    </div>
+
+    <article class="panel report-section">
+        <h2>Client Delivery Snapshot</h2>
+        <p>Live operational overview across clients. Checklist progress counts completed template steps out of eight.</p>
+        <div class="table-wrap"><table class="report-client-table"><thead><tr><th>Client</th><th>Onboarding Stage</th><th>Total Tasks</th><th>Completed</th><th>Overdue</th><th>Checklist</th></tr></thead><tbody id="report-client-body"></tbody></table></div>
+        <p id="report-empty" class="small-text" hidden>No clients yet. Add a client to populate this report.</p>
+    </article>
+
+    <article class="panel report-section">
+        <h2>Download Your Data</h2>
+        <p>JSON backs up both clients and tasks for later restoration. CSV files are for spreadsheet review and cannot be imported back into ClientFlow.</p>
+        <div class="report-actions">
+            <button type="button" class="btn btn-primary" id="report-backup-again">Export JSON Backup</button>
+            <button type="button" class="btn btn-secondary" id="report-clients-csv">Export Clients CSV</button>
+            <button type="button" class="btn btn-secondary" id="report-tasks-csv">Export Tasks CSV</button>
+        </div>
+    </article>
+
+    <article class="panel report-section">
+        <h2>Restore a JSON Backup</h2>
+        <p><strong>Important:</strong> importing will replace all clients and tasks currently stored in this browser. Export and verify a backup first. It will not change your source code.</p>
+        <div class="field">
+            <label for="report-import-file">Select a ClientFlow JSON backup</label>
+            <input id="report-import-file" type="file" accept=".json,application/json">
+        </div>
+        <p id="report-import-preview" class="report-import-preview" role="status" aria-live="polite">No file selected.</p>
+        <button type="button" class="btn btn-danger" id="report-import-apply" disabled>Replace Browser Data</button>
+    </article>
+
+    <p id="report-message" class="report-message" role="status" aria-live="polite"></p>
+</section>
+</main>
+
+<footer>
+    ClientFlow | Streamlining Client Onboarding Workflows
+    <div>Operational Excellence in Digital IT Agencies</div>
+</footer>
+
+</body>
+</html>

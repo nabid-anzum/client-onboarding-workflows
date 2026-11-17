@@ -1,0 +1,673 @@
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --background: #f5f7fb;
+    --surface: #ffffff;
+    --text: #172033;
+    --muted: #64748b;
+    --border: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.header {
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.brand span {
+    color: var(--primary);
+}
+
+.header-right {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.navigation {
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+}
+
+.nav-btn {
+    border: 0;
+    border-bottom: 3px solid transparent;
+    padding: 16px;
+    background: transparent;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.nav-btn.active {
+    color: var(--primary);
+    border-color: var(--primary);
+    font-weight: 700;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 24px 65px;
+}
+
+.storage-message {
+    font-size: 13px;
+    color: #166534;
+    margin-bottom: 16px;
+}
+
+.storage-message.warning {
+    color: #b45309;
+}
+
+.feedback {
+    margin-bottom: 16px;
+    color: #166534;
+    font-size: 14px;
+}
+
+.feedback:empty {
+    display: none;
+}
+
+.feedback.error {
+    color: #b91c1c;
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.eyebrow {
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 800;
+    letter-spacing: 1.6px;
+}
+
+h1 {
+    font-size: clamp(27px, 4vw, 36px);
+    line-height: 1.2;
+    margin: 8px 0;
+}
+
+h2 {
+    font-size: 19px;
+    margin: 0 0 10px;
+}
+
+p {
+    margin-top: 0;
+    color: var(--muted);
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 10px 17px;
+    border: 1px solid var(--border);
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--text);
+}
+
+.btn-danger {
+    color: #b91c1c;
+    background: white;
+    border-color: #fecaca;
+}
+
+.btn-small {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.stat-card, .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.stat-label, .stat-foot {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.stat-value {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 10px 0;
+    line-height: 1.3;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.progress-heading {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin: 30px 0 8px;
+}
+
+progress {
+    width: 100%;
+    height: 13px;
+    accent-color: var(--primary);
+}
+
+.small-text {
+    font-size: 13px;
+    margin-top: 14px;
+}
+
+.recent-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recent-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.recent-list li:last-child {
+    border-bottom: 0;
+}
+
+.recent-list span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.next-panel {
+    margin-top: 24px;
+}
+
+#client-form {
+    margin-bottom: 24px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 24px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.field input, .field select {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: white;
+    color: var(--text);
+}
+
+.field input:focus, .field select:focus {
+    outline: 2px solid #bfdbfe;
+    border-color: var(--primary);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13px;
+}
+
+th, td {
+    padding: 13px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+th {
+    color: var(--muted);
+    font-size: 12px;
+    background: #f8fafc;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.stage-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    white-space: nowrap;
+}
+
+.stage-badge.completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.stage-badge.progress {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px;
+    color: var(--muted);
+}
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 30px 15px;
+}
+
+@media (max-width: 850px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-right {
+        display: none;
+    }
+
+    .stats-grid, .form-grid, .filter-row {
+        grid-template-columns: 1fr;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stat-value {
+        font-size: 30px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+}
+
+/* Batch 4: onboarding task management */
+
+.task-panel,
+.task-dashboard-panel {
+    margin-bottom: 24px;
+}
+
+.task-description-field {
+    grid-column: 1 / -1;
+}
+
+.field textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    resize: vertical;
+    color: var(--text);
+    font: inherit;
+}
+
+.field textarea:focus {
+    outline: 2px solid #bfdbfe;
+    border-color: var(--primary);
+}
+
+.task-filters {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.tasks-table {
+    min-width: 910px;
+}
+
+.task-description {
+    max-width: 250px;
+    color: var(--muted);
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.task-pill {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 4px 9px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.priority-high,
+.status-blocked {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.priority-medium,
+.status-in-progress {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.priority-low,
+.status-completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.task-overdue {
+    color: #b91c1c;
+    font-weight: 800;
+}
+
+.task-warning {
+    background: #fff7ed;
+    color: #9a3412;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+}
+
+.task-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.task-mini-grid div {
+    padding: 14px;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.task-mini-grid strong {
+    display: block;
+    font-size: 27px;
+    line-height: 1.3;
+}
+
+.task-mini-grid span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+@media (max-width: 850px) {
+    .task-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .task-filters,
+    .task-mini-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Batch 5: standardized client onboarding checklists */
+
+.checklist-panel,
+.checklist-dashboard-panel {
+    margin-bottom: 24px;
+}
+
+.checklist-toolbar {
+    display: flex;
+    align-items: end;
+    gap: 16px;
+    margin-top: 22px;
+}
+
+.checklist-toolbar .field {
+    flex: 1;
+}
+
+.checklist-toolbar .btn {
+    white-space: nowrap;
+}
+
+.checklist-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.checklist-heading strong {
+    color: var(--primary);
+    font-size: 23px;
+    white-space: nowrap;
+}
+
+.checklist-alert {
+    margin: 14px 0 0;
+    color: #166534;
+    font-size: 13px;
+}
+
+.checklist-alert:empty {
+    display: none;
+}
+
+.checklist-alert.checklist-error {
+    color: #b91c1c;
+}
+
+.checklist-items {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checklist-item {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 15px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.checklist-item-done {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.checklist-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 39px;
+    height: 39px;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.checklist-item-done .checklist-number {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.checklist-item strong {
+    display: block;
+    font-size: 14px;
+}
+
+.checklist-detail {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+@media (max-width: 650px) {
+    .checklist-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .checklist-item {
+        grid-template-columns: 40px minmax(0, 1fr);
+    }
+
+    .checklist-item .btn {
+        grid-column: 2;
+        justify-self: start;
+    }
+}
+
+/* Batch 6: operational reports and data backup */
+.report-section { margin-bottom: 24px; }
+.report-client-table { min-width: 670px; }
+.report-alert-row { display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid var(--border); }
+.report-alert-row:last-child { border-bottom:0; }
+.report-alert-row strong { font-size:20px; color:var(--primary); }
+.report-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+.report-import-preview { font-size:13px; margin:12px 0; color:var(--muted); }
+.report-message { color:#166534; font-size:14px; margin-top:12px; }
+.report-message.error { color:#b91c1c; }
+.report-stats { margin-bottom:24px; }
